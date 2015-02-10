@@ -1,0 +1,125 @@
+<html>
+<head>
+  <title>To Do List</title>
+
+  <script type="text/javascript">
+    function addItem(myTable) {
+      // Get the table, create a new row, and create two cells in the row
+      var table = document.getElementById(myTable);
+      var row = table.insertRow(1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+
+      // Get the value from the textbox, and clear the textbox
+      var item = document.getElementById('item_val').value;
+      document.getElementById('item_val').value="";
+
+      // Create the checkbox
+      var element1 = document.createElement('input');
+      element1.type = 'checkbox';
+      element1.name = 'chkbox[]';
+      cell1.appendChild(element1);
+
+      // Insert the value into the first cell
+      var element2 = document.createElement("P");
+      var text2 = document.createTextNode(item);
+      element2.appendChild(text2);
+      cell2.appendChild(element2);
+    }
+
+    function deleteItem(myTable) {
+      // Get the table
+      var table = document.getElementById(myTable);
+
+      // Loop through the rows in the table, deleting all that are checked
+      for (var i=0; i<table.rows.length; i++) {
+        var row = table.rows[i];
+        var chkbox = row.cells[0].childNodes[0];
+        if(chkbox != null && chkbox.checked == true) {
+          table.deleteRow(i);
+          i--;
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #4682b4;
+      font-family: Tahoma;
+    }
+
+    h1 {
+      text-align: center;
+      padding-bottom: 10px;
+      border-bottom: dashed 1px;
+    }
+    .container {
+      background-color: #eee9e9;
+      width: 600px;
+      height: 100%;
+      margin: auto;
+      padding: 25px;
+    }
+
+    .add-item {
+      width: 40%;
+      float: left;
+      padding-top: 3px;
+    }
+
+    .list {
+      width: 60%;
+      float: right;
+    }
+
+    .clear-fix {
+      clear: both;
+    }
+
+    .col1 {
+      width: 10%;
+      text-align: left;
+    }
+
+    .col2 {
+      text-align: left;
+    }
+
+    #table {
+      width: 100%;
+      padding-bottom: 15px;
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <h1>To Do List</h1>
+
+  <div class="add-item">
+    <strong>Add an item:</strong><br>
+    <input type="text" id="item_val">
+    <input type="button" value="Add" onclick="addItem('table')">
+  </div>
+
+  <div class="list">
+    <table id="table">
+      <tr id="table-header">
+        <th class="col1">&#10004;</th>
+        <th class="col2">Item</th>
+      </tr>
+    </table>
+    <input type="button" value="Mark As Complete" onclick="deleteItem('table')">
+  </div>
+
+  <div class="clear-fix"></div>
+
+</div>
+</body>
+</html>
+
+<!--
+  Get rid of the delete checkbox, figure out how to add in a link
+  Figure out how to add styles in the JS elements for hover styling
+  Figure out how to add classes to JS rows and cells
+-->
